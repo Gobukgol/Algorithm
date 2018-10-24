@@ -12,15 +12,15 @@
 int **box;
 int M,N;
 int boxSum = 0;
+int resultSum = 0;
 
 typedef struct tomato{
     int x;
     int y;
     int day;
-} Tomato;
-
+}Tomato;
 std::queue<Tomato>q;
-
+int getDay();
 int main(int argc, const char *argv[]){
     
     std::cin >> M >> N;
@@ -29,7 +29,14 @@ int main(int argc, const char *argv[]){
     
     for(int i=0;i<N+2;i++){
         box[i] = new int[M+2];
-        memset(box[i],-1,sizeof(int)*(M+2));
+        //memset(box[i],-1,sizeof(int)*(M+2));
+    }
+    
+    //백준의 경우 memset 초기화가 안돼서(왜인지모름) 일일이 초기화해줘야함
+    for(int i=0;i<N+2;i++){
+        for(int j=0;j<M+2;j++){
+            box[i][j] = -1;
+        }
     }
     
     for(int i=1;i<=N;i++){
@@ -49,21 +56,62 @@ int main(int argc, const char *argv[]){
             }
         }
     }
+    int result = getDay();
+    for(int i=1;i<=N;i++){
+        for(int j=1;j<=M;j++){
+            resultSum+=box[i][j];
+        }
+    }
     
-//    for(int i=0;i<N+2;i++){
-//        for(int j=0;j<M+2;j++){
-//            std::cout << box[i][j];
-//        }
-//        std::cout<<std::endl;
-//    }
-//
-//    box = {0,};
+    if(boxSum == resultSum){
+        std::cout << result;
+    } else {
+        std::cout <<-1;
+    }
     
     return 0;
 }
-
-void getDay(){
+int getDay(){
+    int day;
     while(!q.empty()){
-        
+        Tomato tmpToma = q.front();
+        q.pop();
+        Tomato nextToma;
+        day = tmpToma.day;
+        //위
+        if(box[tmpToma.x-1][tmpToma.y] == 0){
+            box[tmpToma.x-1][tmpToma.y] = 1;
+            nextToma.x = tmpToma.x-1;
+            nextToma.y = tmpToma.y;
+            nextToma.day = tmpToma.day + 1;
+            q.push(nextToma);
+        }
+        //아래
+        if(box[tmpToma.x+1][tmpToma.y] == 0){
+            box[tmpToma.x+1][tmpToma.y] = 1;
+            nextToma.x = tmpToma.x+1;
+            nextToma.y = tmpToma.y;
+            nextToma.day = tmpToma.day + 1;
+            q.push(nextToma);
+        }
+        //왼쪽
+        if(box[tmpToma.x][tmpToma.y-1] == 0){
+            box[tmpToma.x][tmpToma.y-1] = 1;
+            nextToma.x = tmpToma.x;
+            nextToma.y = tmpToma.y-1;
+            nextToma.day = tmpToma.day + 1;
+            q.push(nextToma);
+        }
+        //오른쪽
+        if(box[tmpToma.x][tmpToma.y+1] == 0){
+            box[tmpToma.x][tmpToma.y+1] = 1;
+            nextToma.x = tmpToma.x;
+            nextToma.y = tmpToma.y+1;
+            nextToma.day = tmpToma.day + 1;
+            q.push(nextToma);
+        }
     }
+    
+    return day;
 }
+
