@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <queue>
+#include <cstdio>
 
 typedef struct point{
     int x;
@@ -30,7 +31,8 @@ int main(int argc, const char *argv[]){
     
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
-            std::cin>>matrix[i][j];
+            //std::cin>>matrix[i][j];
+            scanf("%d",&matrix[i][j]);
             if(matrix[i][j] == 1){
                 Point point;
                 point.x = i;
@@ -64,9 +66,11 @@ int main(int argc, const char *argv[]){
     //출력
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
-            std::cout<<result[i][j]<<" ";
+            //std::cout<<result[i][j]<<" ";
+            printf("%d ",result[i][j]);
         }
-        std::cout<<std::endl;
+        //std::cout<<std::endl;
+        printf("\n");
     }
     
     return 0;
