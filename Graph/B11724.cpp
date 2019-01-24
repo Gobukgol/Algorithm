@@ -12,8 +12,15 @@
 
 int N,M;
 int matrix[1001][1001] = {0,};
-int visited[1001] = {0,};
-std::queue<int> q;
+bool visited[1001] = {false,};
+void dfs(int point){
+    for(int i=1;i<=N;i++){
+        if(matrix[point][i] == 1 && !visited[i]){
+            visited[i] = true;
+            dfs(i);
+        }
+    }
+}
 int main(int argc, const char *argv[]){
     int count=0;
     scanf("%d %d",&N,&M);
@@ -26,24 +33,9 @@ int main(int argc, const char *argv[]){
     }
     
     for(int i=1;i<=N;i++){
-        if(visited[i] == 0){
-            visited[i] = 1;
-            for(int j=1;j<=N;j++){
-                if(matrix[i][j] == 1){
-                    q.push(j);
-                    visited[j] = 1;
-                }
-            }
-            while (!q.empty()) {
-                int tmp = q.front();
-                q.pop();
-                for(int j=1;j<=N;j++){
-                    if(matrix[tmp][j] == 1 && visited[j] == 0){
-                        visited[j] = 1;
-                        q.push(j);
-                    }
-                }
-            }
+        if(!visited[i]){
+            visited[i] = true;
+            dfs(i);
             count++;
         }
     }
@@ -51,3 +43,4 @@ int main(int argc, const char *argv[]){
     printf("%d",count);
     return 0;
 }
+
