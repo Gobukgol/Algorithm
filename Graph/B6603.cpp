@@ -16,6 +16,7 @@ using namespace std;
 int main(int argc,const char *argv[]){
     
     while(1){
+        printf("\n");
         int K;
         vector<int> lotto;
         vector<vector<int>> answer;
@@ -48,7 +49,6 @@ int main(int argc,const char *argv[]){
                 }
             }
             
-            printf("\n");
         } else {
             break;
         }
