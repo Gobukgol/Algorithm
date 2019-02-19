@@ -13,7 +13,7 @@ int main(int argc,const char* argv[]){
     int train = 0;
     int max = 0;
     int off = 0;
-    int on = 0;
+    int on = 0;c
     for(int i=0;i<4;i++){
         cin >> off >> on;
         train = train + on - off;
